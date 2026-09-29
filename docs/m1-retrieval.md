@@ -1,4 +1,4 @@
-# M1 retrieval (Day 6)
+# M1 retrieval
 
 M1 = retrieval-augmented generation: before writing code, the model is given the 4 most relevant chunks from a reviewed
 guidance corpus. M0 (plain-prompt baseline) is the same generator with no retrieval and no verification loop.
@@ -9,7 +9,7 @@ guidance corpus. M0 (plain-prompt baseline) is the same generator with no retrie
 access control, workflows and state machines, money and time, external calls, OWASP API security, testing, pitfalls).
 General guidance only. `tests/test_rag.py` enforces that no chunk contains a private canary or hidden check name, and
 that no chunk shares three consecutive non-trivial code lines with any benchmark reference app. The guard caught two
-harmless collisions on Day 6 (a generic example test name, a standard not-blank validator); both were reworded.
+harmless collisions (a generic example test name, a standard not-blank validator); both were reworded.
 
 ## Retrieval pipeline (`model1_rag_generator/backend/app/hybrid_rag.py`)
 
