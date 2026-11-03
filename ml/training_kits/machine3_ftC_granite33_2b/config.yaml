@@ -1,0 +1,24 @@
+# Machine 3: ftC_granite33_2b
+# Identical settings across all four kits except model_id, so the comparison is controlled.
+run_name: ftC_granite33_2b
+model_id: ibm-granite/granite-3.3-2b-instruct
+revision: null            # after preflight, paste the model's current Hugging Face commit hash here (README step 2)
+use_chat_template: auto   # auto = use the model's chat template if it has one, else the SVAGA fallback template
+seed: 2026
+max_len: 4096             # rows longer than this are dropped, never truncated
+eval_subset: 150          # validation rows checked during training (full val is scored in evaluate.py)
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: all-linear
+train:
+  batch_size: 1
+  grad_accum: 16          # 16 examples per update, about 635 updates for one epoch
+  lr: 0.0002
+  epochs: 1
+  warmup_ratio: 0.03
+  log_every: 10
+  eval_every: 100
+  save_every: 100         # a checkpoint every 100 updates; training resumes from the latest one automatically
+  keep_checkpoints: 3

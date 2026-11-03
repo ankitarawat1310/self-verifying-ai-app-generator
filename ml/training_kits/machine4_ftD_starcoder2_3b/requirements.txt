@@ -1,0 +1,6 @@
+# GPU fine-tuning runtime (Colab or a CUDA machine). torch comes preinstalled on Colab; elsewhere install a CUDA build first.
+transformers>=4.46,<5   # 5.x broke the deepseek-coder tokenizer (spaces lost); keep below 5
+peft>=0.13
+bitsandbytes>=0.44
+accelerate>=1.0
+pyyaml
