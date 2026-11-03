@@ -58,6 +58,22 @@ export async function startExperiment(body) {
   return res.json();
 }
 
+export async function fetchModels() {
+  const res = await fetch(`${API_BASE}/api/v1/models`);
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+export async function fetchModelReport() {
+  const res = await fetch(`${API_BASE}/api/v1/models/report`);
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+export function modelChartUrl(section, file) {
+  return `${API_BASE}/api/v1/models/charts/${section}/${encodeURIComponent(file)}`;
+}
+
 export async function fetchGrids() {
   const res = await fetch(`${API_BASE}/api/v1/grid`);
   if (!res.ok) throw new Error(await res.text());

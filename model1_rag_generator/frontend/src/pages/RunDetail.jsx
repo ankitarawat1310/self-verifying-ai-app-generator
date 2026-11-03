@@ -63,7 +63,14 @@ export default function RunDetail() {
           <h2 className="text-xl font-bold mt-1">
             Run {run.run_id?.slice(0, 8)} · {run.pipeline?.toUpperCase()}
           </h2>
-          <p className="text-sm text-slate-400">{run.workflow_id}</p>
+          <p className="text-sm text-slate-400">
+            {run.workflow_id}
+            {run.provenance?.llm && (
+              <span className="ml-2 text-xs text-slate-500">
+                · model {run.provenance.llm.provider} / {run.provenance.llm.model}
+              </span>
+            )}
+          </p>
         </div>
         <ReleaseBadge decision={gate.decision} reasons={gate.reasons} />
       </div>

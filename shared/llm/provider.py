@@ -219,7 +219,41 @@ class AnthropicLLMProvider(LLMProvider):
 FakeLLMProvider = ScriptedLLMProvider
 
 
+# ---------------------------------------------------------------- per-run model selection (fine-tuned models)
+# SVAGA_MODEL_ENDPOINTS lists models the console may pick per run, each served by svaga_data/svaga_plugin/serve_svaga_model.py
+# (an Ollama-compatible server). Format: JSON {"name": "http://host:port"} or "name=http://host:port,name2=...".
+import contextlib
+import contextvars
+
+_SELECTED_MODEL: contextvars.ContextVar[str | None] = contextvars.ContextVar("svaga_selected_model", default=None)
+
+
+def model_endpoints() -> dict[str, str]:
+    raw = os.getenv("SVAGA_MODEL_ENDPOINTS", "").strip()
+    if not raw:
+        return {}
+    if raw.startswith("{"):
+        return {str(k): str(v) for k, v in json.loads(raw).items()}
+    pairs = [p.split("=", 1) for p in raw.split(",") if "=" in p]
+    return {k.strip(): v.strip() for k, v in pairs}
+
+
+@contextlib.contextmanager
+def selected_model(name: str | None):
+    """Route every get_llm_provider() call inside this block to a named model endpoint (None = default provider)."""
+    if name and name not in model_endpoints():
+        raise KeyError(f"unknown model '{name}'; configured: {sorted(model_endpoints())}")
+    token = _SELECTED_MODEL.set(name)
+    try:
+        yield
+    finally:
+        _SELECTED_MODEL.reset(token)
+
+
 def get_llm_provider() -> LLMProvider:
+    chosen = _SELECTED_MODEL.get()
+    if chosen:
+        return OllamaLLMProvider(model=chosen, base_url=model_endpoints()[chosen])
     scripted = os.getenv("SVAGA_SCRIPTED_LLM", "").lower() in ("1", "true", "yes")
     legacy_llm = os.getenv("SVAGA_LLM", "").lower()
     provider = os.getenv("SVAGA_LLM_PROVIDER", "").lower()

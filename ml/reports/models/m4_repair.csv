@@ -1,0 +1,5 @@
+condition,repair_model,apps,valid_diff_pct,diff_applied_fully_pct,code_changed_pct,gate_accept_after_pct,broken_apps_fixed,correct_apps_in_set,correct_candidates_damaged,shipped_false_assurance,hidden_checks_before_pct,hidden_checks_candidate_after_pct,median_hunks_round1,model_minutes_total
+granite_base,Granite-3.3 2B (base),28,18,0,4,0,0 of 20,8,0 of 8,0,78,75,0.5,40.2
+granite_tuned,Granite-3.3 2B (fine-tuned),28,100,7,100,0,0 of 20,8,6 of 8,0,78,37,6,104.1
+qwen30b_base,Qwen3-Coder 30B-A3B (base),28,71,43,50,0,0 of 20,8,2 of 8,0,78,71,1,12.4
+qwen30b_tuned,Qwen3-Coder 30B-A3B (fine-tuned),28,100,14,86,0,0 of 20,8,5 of 8,0,78,44,10,19.9

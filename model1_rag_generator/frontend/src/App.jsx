@@ -3,6 +3,7 @@ import Compare from "./pages/Compare.jsx";
 import CreateRun from "./pages/CreateRun.jsx";
 import Experiments from "./pages/Experiments.jsx";
 import Home from "./pages/Home.jsx";
+import Models from "./pages/Models.jsx";
 import Results from "./pages/Results.jsx";
 import RunDetail from "./pages/RunDetail.jsx";
 
@@ -22,8 +23,8 @@ export default function App() {
         <Link to="/compare" className="hover:text-white">
           Compare
         </Link>
-        <Link to="/experiments" className="hover:text-white">
-          Experiments
+        <Link to="/models" className="hover:text-white">
+          Models
         </Link>
         <a href="/api/docs" className="ml-auto text-slate-500 hover:text-slate-300">
           API docs
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="/experiments" element={<Experiments />} />
         <Route path="/results" element={<Results />} />
         <Route path="/compare" element={<Compare />} />
+        <Route path="/models" element={<Models />} />
       </Routes>
     </div>
   );

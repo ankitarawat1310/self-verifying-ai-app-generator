@@ -17,7 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from shared.llm.provider import describe_llm_provider  # noqa: E402
+from shared.llm.provider import describe_llm_provider, selected_model  # noqa: E402
 from svaga_platform.app.experiments.grid import run_one  # noqa: E402
 from scripts.summarize_grid import print_and_save  # noqa: E402
 
@@ -31,8 +31,14 @@ def main() -> int:
     ap.add_argument("--name", default=time.strftime("%Y%m%d_%H%M%S"))
     ap.add_argument("--no-recall", action="store_true", help="skip running each model's tests against seeded bugs")
     ap.add_argument("--allow-scripted", action="store_true")
+    ap.add_argument("--llm-model", default=None,
+                    help="run every pipeline with this model from SVAGA_MODEL_ENDPOINTS (a fine-tuned or base model server)")
     args = ap.parse_args()
+    with selected_model(args.llm_model):
+        return _run(args)
 
+
+def _run(args) -> int:
     who = describe_llm_provider()
     print(f"model: {who['provider']} / {who['model']}")
     if who["provider"] == "scripted" and not args.allow_scripted:

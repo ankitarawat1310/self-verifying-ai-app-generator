@@ -41,15 +41,20 @@ def run_workflow(
     workflow_id: str | None = None,
     budget: BudgetTracker | None = None,
     persist: bool = True,
+    llm_model: str | None = None,
 ) -> dict[str, Any]:
+    from shared.llm.provider import selected_model
+
     budget = budget or BudgetTracker(profile=BudgetProfile())
     benchmark = resolve_benchmark(natural_language, workflow_id)
     pipe = get_pipeline(pipeline)
-    result: PipelineResult = pipe.run(benchmark, budget=budget)
+    with selected_model(llm_model):
+        result: PipelineResult = pipe.run(benchmark, budget=budget)
+        llm_label = llm_provider_label()
 
     provenance = {
         **result.metadata,
-        "llm": llm_provider_label(),
+        "llm": llm_label,
         "benchmark_workflow_id": benchmark.workflow_id,
         "natural_language": benchmark.natural_language_requirement,
     }
