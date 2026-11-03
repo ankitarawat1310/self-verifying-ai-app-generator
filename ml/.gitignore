@@ -1,0 +1,21 @@
+# Data, model weights and training outputs live on the team Drive (Workbook 2, Appendix B), not in git.
+gold/*.jsonl
+gold/gold_metadata.csv
+bronze/
+warehouse/
+returned/
+bad_runs/
+_staging/
+_to_delete/
+training_kits/*/data/
+training_kits/*/outputs/
+training_kits/RETURN_*.zip
+training_kits/machine*.zip
+*.gguf
+*.safetensors
+*.duckdb
+*.duckdb.wal
+# Small result bundles that analysis/public_benchmarks.py reads directly (under 1 MB each)
+!all_results_podA.zip
+!results_30b.zip
+!training_kits/func_eval_ftD_v2.zip

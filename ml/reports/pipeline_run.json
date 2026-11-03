@@ -1,0 +1,220 @@
+{
+  "ingest": {
+    "result": {
+      "codefeedback/train": 3695,
+      "codefeedback/validation": 194,
+      "commitpackft/train": 7657,
+      "commitpackft/validation": 403,
+      "swesmith_py/train": 10000,
+      "swesmith_py/validation": 1000,
+      "heldout": 726
+    },
+    "seconds": 34.3
+  },
+  "clean": {
+    "result": {
+      "kept": 22821,
+      "dropped": 128,
+      "dropped_by_reason": {
+        "codefeedback:python_does_not_parse": 122,
+        "codefeedback:over_4096_estimated_tokens": 3,
+        "commitpackft:license_unknown": 3
+      }
+    },
+    "seconds": 42.3
+  },
+  "build_gold": {
+    "result": {
+      "train_per_type": 3385,
+      "split_counts": [
+        [
+          "test",
+          "edit",
+          190
+        ],
+        [
+          "test",
+          "generate",
+          190
+        ],
+        [
+          "test",
+          "repair",
+          190
+        ],
+        [
+          "train",
+          "edit",
+          3385
+        ],
+        [
+          "train",
+          "generate",
+          3385
+        ],
+        [
+          "train",
+          "repair",
+          3385
+        ],
+        [
+          "val",
+          "edit",
+          190
+        ],
+        [
+          "val",
+          "generate",
+          189
+        ],
+        [
+          "val",
+          "repair",
+          190
+        ]
+      ]
+    },
+    "seconds": 13.0
+  },
+  "quality_checks": {
+    "result": {
+      "no_row_in_two_splits": true,
+      "no_content_in_two_splits": true,
+      "repair_repos_disjoint_across_splits": true,
+      "no_unknown_license": true,
+      "no_empty_target": true,
+      "train_balanced_by_rows": true
+    },
+    "seconds": 0.1
+  },
+  "export": {
+    "result": {
+      "seed": 2026,
+      "files": {
+        "train.jsonl": {
+          "rows": 10155,
+          "sha256": "d928d2df9ff6085955c143ed622a2de8ba10679cde1a239b9aa224bcc35f4f32"
+        },
+        "val.jsonl": {
+          "rows": 569,
+          "sha256": "1ff8ef297dec862b8398aef436dbfca044d209fabb749a979a110c9718618a2e"
+        },
+        "test.jsonl": {
+          "rows": 570,
+          "sha256": "3b3a325eca55a42e47fbd8db418833d37baea189b961a759a4f0d6c0dd943f36"
+        }
+      },
+      "schema": [
+        "sample_id",
+        "task_type",
+        "source_dataset",
+        "source_id",
+        "license",
+        "split",
+        "messages"
+      ]
+    },
+    "seconds": 6.3
+  },
+  "report": {
+    "result": {
+      "codefeedback": {
+        "raw": 156526,
+        "filtered package": 3889,
+        "silver (cleaned)": 3764,
+        "gold (balanced)": 3764
+      },
+      "commitpackft": {
+        "raw": 56025,
+        "filtered package": 8060,
+        "silver (cleaned)": 8057,
+        "gold (balanced)": 3765
+      },
+      "swesmith_py": {
+        "raw": 50908,
+        "filtered package": 11000,
+        "silver (cleaned)": 11000,
+        "gold (balanced)": 3765
+      },
+      "silver_drops": [
+        [
+          "codefeedback",
+          "validity: python_does_not_parse",
+          122
+        ],
+        [
+          "codefeedback",
+          "length: over_4096_estimated_tokens",
+          3
+        ],
+        [
+          "commitpackft",
+          "license: license_unknown",
+          3
+        ]
+      ],
+      "gold": [
+        [
+          "train",
+          "edit",
+          3385,
+          1786835
+        ],
+        [
+          "train",
+          "generate",
+          3385,
+          3214144
+        ],
+        [
+          "train",
+          "repair",
+          3385,
+          5706077
+        ],
+        [
+          "test",
+          "edit",
+          190,
+          97557
+        ],
+        [
+          "test",
+          "generate",
+          190,
+          182130
+        ],
+        [
+          "test",
+          "repair",
+          190,
+          286459
+        ],
+        [
+          "val",
+          "edit",
+          190,
+          103955
+        ],
+        [
+          "val",
+          "generate",
+          189,
+          180665
+        ],
+        [
+          "val",
+          "repair",
+          190,
+          287759
+        ]
+      ],
+      "train_group_diversity": {
+        "edit": 4,
+        "generate": 2,
+        "repair": 119
+      }
+    },
+    "seconds": 0.9
+  }
+}
