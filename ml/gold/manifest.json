@@ -1,0 +1,26 @@
+{
+  "seed": 2026,
+  "files": {
+    "train.jsonl": {
+      "rows": 10155,
+      "sha256": "d928d2df9ff6085955c143ed622a2de8ba10679cde1a239b9aa224bcc35f4f32"
+    },
+    "val.jsonl": {
+      "rows": 569,
+      "sha256": "1ff8ef297dec862b8398aef436dbfca044d209fabb749a979a110c9718618a2e"
+    },
+    "test.jsonl": {
+      "rows": 570,
+      "sha256": "3b3a325eca55a42e47fbd8db418833d37baea189b961a759a4f0d6c0dd943f36"
+    }
+  },
+  "schema": [
+    "sample_id",
+    "task_type",
+    "source_dataset",
+    "source_id",
+    "license",
+    "split",
+    "messages"
+  ]
+}
