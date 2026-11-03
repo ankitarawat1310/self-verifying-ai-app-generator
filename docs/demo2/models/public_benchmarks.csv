@@ -1,0 +1,15 @@
+model,run,benchmark,n,base_svaga_prompt_pct,base_plain_prompt_pct,best_base,best_base_pct,fine_tuned_pct,change_pts,solved_only_by_fine_tuned,solved_only_by_best_base,mcnemar_p,significant,base_diff_valid_pct,tuned_diff_valid_pct,base_applies_pct,tuned_applies_pct,base_pass_given_applied_pct,tuned_pass_given_applied_pct,source
+Qwen2.5-Coder 1.5B,ftA,HumanEval+,164,59.1,,base,59.1,62.8,3.7,15,9,0.307456,False,,,,,,,all_results_podA.zip
+DeepSeek-Coder 1.3B,ftB,HumanEval+,164,61.6,,base,61.6,56.1,-5.5,8,17,0.107752,False,,,,,,,all_results_podA.zip
+Granite-3.3 2B,ftC,HumanEval+,164,51.2,,base,51.2,47.6,-3.6,14,20,0.391528,False,,,,,,,all_results_podA.zip
+StarCoder2 3B,ftD,HumanEval+,164,19.5,23.8,base_plain,23.8,32.9,9.1,25,10,0.016674,True,,,,,,,func_eval_ftD_v2.zip
+Qwen3-Coder 30B-A3B,30B,HumanEval+,164,80.5,,base,80.5,82.9,2.4,16,12,0.571588,False,,,,,,,results_30b.zip
+Qwen2.5-Coder 1.5B,ftA,MBPP+,378,56.1,,base,56.1,57.4,1.3,34,29,0.614655,False,,,,,,,all_results_podA.zip
+DeepSeek-Coder 1.3B,ftB,MBPP+,378,53.2,,base,53.2,54.5,1.3,20,15,0.49956,False,,,,,,,all_results_podA.zip
+Granite-3.3 2B,ftC,MBPP+,378,49.5,,base,49.5,50.5,1.0,27,23,0.671811,False,,,,,,,all_results_podA.zip
+StarCoder2 3B,ftD,MBPP+,378,1.1,49.2,base_plain,49.2,44.7,-4.5,35,52,0.085689,False,,,,,,,func_eval_ftD_v2.zip
+Qwen3-Coder 30B-A3B,30B,MBPP+,378,72.0,,base,72.0,73.0,1.0,36,32,0.716301,False,,,,,,,results_30b.zip
+Qwen2.5-Coder 1.5B,ftA,HumanEvalFix,164,6.1,,base,6.1,4.9,-1.2,8,10,0.814529,False,65.2,85.4,30.5,44.5,20.0,11.0,all_results_podA.zip
+DeepSeek-Coder 1.3B,ftB,HumanEvalFix,164,4.9,,base,4.9,6.1,1.2,9,7,0.803619,False,29.9,72.6,12.2,32.3,40.0,18.9,all_results_podA.zip
+Granite-3.3 2B,ftC,HumanEvalFix,164,0.0,,base,0.0,11.6,11.6,19,0,4e-06,True,6.7,88.4,2.4,53.0,0.0,21.8,all_results_podA.zip
+StarCoder2 3B,ftD,HumanEvalFix,164,1.2,,base,1.2,17.7,16.5,28,1,0.0,True,11.0,86.6,6.1,61.6,20.0,28.7,all_results_podA.zip

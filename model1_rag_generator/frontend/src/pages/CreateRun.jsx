@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PromptInput from "../components/PromptInput.jsx";
-import { fetchBenchmarks, fetchConfig, runWorkflow } from "../api.js";
+import { fetchBenchmarks, fetchConfig, fetchModels, runWorkflow } from "../api.js";
 
 export default function CreateRun() {
   const navigate = useNavigate();
@@ -12,12 +12,16 @@ export default function CreateRun() {
   const [pipeline, setPipeline] = useState("m1");
   const [benchmarks, setBenchmarks] = useState([]);
   const [llm, setLlm] = useState(null);
+  const [models, setModels] = useState([]);
+  const [llmModel, setLlmModel] = useState("");
+  const [showLegacy, setShowLegacy] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     fetchBenchmarks().then(setBenchmarks).catch(() => {});
     fetchConfig().then((c) => setLlm(c.llm)).catch(() => {});
+    fetchModels().then((m) => setModels(m.selectable || [])).catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -35,6 +39,7 @@ export default function CreateRun() {
         pipeline,
         natural_language: prompt,
         workflow_id: workflowId || null,
+        llm_model: llmModel || null,
       };
       const result = await runWorkflow(body);
       navigate(`/runs/${result.run_id}`, { state: { result } });
@@ -77,6 +82,26 @@ export default function CreateRun() {
         </select>
       </label>
       <label className="block text-sm">
+        Model
+        <select
+          className="mt-1 w-full bg-slate-900 border border-slate-700 rounded p-2"
+          value={llmModel}
+          onChange={(e) => setLlmModel(e.target.value)}
+        >
+          <option value="">Default{llm ? ` (${llm.provider} / ${llm.model})` : ""}</option>
+          {models.map((m) => (
+            <option key={m.name} value={m.name}>
+              {m.name.endsWith("-base") ? `${m.name} (base model, no fine-tuning)` : `${m.name} (fine-tuned)`}
+            </option>
+          ))}
+        </select>
+        {models.length === 0 && (
+          <span className="block mt-1 text-xs text-slate-500">
+            Fine-tuned models appear here when SVAGA_MODEL_ENDPOINTS points at running model servers (see svaga_plugin/README.md).
+          </span>
+        )}
+      </label>
+      <label className="block text-sm">
         Benchmark (optional)
         <select
           className="mt-1 w-full bg-slate-900 border border-slate-700 rounded p-2"
@@ -91,14 +116,18 @@ export default function CreateRun() {
           }}
         >
           <option value="">Free-form natural language</option>
-          {benchmarks.map((b) => (
+          {benchmarks.filter((b) => showLegacy || b.benchmark_version !== "v0").map((b) => (
             <option key={b.workflow_id} value={b.workflow_id}>
               {b.name} ({b.workflow_id})
             </option>
           ))}
         </select>
       </label>
-      <PromptInput value={prompt} onChange={setPrompt} onSubmit={onSubmit} loading={loading} label={`Generate with ${pipeline.toUpperCase()}`} />
+      <label className="flex items-center gap-2 text-xs text-slate-400">
+        <input type="checkbox" checked={showLegacy} onChange={(e) => setShowLegacy(e.target.checked)} />
+        Show legacy one-line workflows (no hidden checks; not used for evaluation)
+      </label>
+      <PromptInput value={prompt} onChange={setPrompt} onSubmit={onSubmit} loading={loading} label={`Generate with ${pipeline.toUpperCase()}${llmModel ? ` + ${llmModel}` : ""}`} />
       {error && <p className="text-red-400 text-sm">{error}</p>}
     </div>
   );

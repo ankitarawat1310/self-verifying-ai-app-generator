@@ -1,0 +1,98 @@
+{
+  "codefeedback": {
+    "raw": 156526,
+    "filtered package": 3889,
+    "silver (cleaned)": 3764,
+    "gold (balanced)": 3764
+  },
+  "commitpackft": {
+    "raw": 56025,
+    "filtered package": 8060,
+    "silver (cleaned)": 8057,
+    "gold (balanced)": 3765
+  },
+  "swesmith_py": {
+    "raw": 50908,
+    "filtered package": 11000,
+    "silver (cleaned)": 11000,
+    "gold (balanced)": 3765
+  },
+  "silver_drops": [
+    [
+      "codefeedback",
+      "validity: python_does_not_parse",
+      122
+    ],
+    [
+      "codefeedback",
+      "length: over_4096_estimated_tokens",
+      3
+    ],
+    [
+      "commitpackft",
+      "license: license_unknown",
+      3
+    ]
+  ],
+  "gold": [
+    [
+      "train",
+      "edit",
+      3385,
+      1786835
+    ],
+    [
+      "train",
+      "generate",
+      3385,
+      3214144
+    ],
+    [
+      "train",
+      "repair",
+      3385,
+      5706077
+    ],
+    [
+      "test",
+      "edit",
+      190,
+      97557
+    ],
+    [
+      "test",
+      "generate",
+      190,
+      182130
+    ],
+    [
+      "test",
+      "repair",
+      190,
+      286459
+    ],
+    [
+      "val",
+      "edit",
+      190,
+      103955
+    ],
+    [
+      "val",
+      "generate",
+      189,
+      180665
+    ],
+    [
+      "val",
+      "repair",
+      190,
+      287759
+    ]
+  ],
+  "train_group_diversity": {
+    "edit": 4,
+    "generate": 2,
+    "repair": 119
+  }
+}

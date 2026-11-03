@@ -52,6 +52,7 @@ class WorkflowRunRequest(BaseModel):
     natural_language: str = Field(min_length=1)
     workflow_id: str | None = None
     budget_profile: dict[str, Any] | None = None
+    llm_model: str | None = None  # a name from SVAGA_MODEL_ENDPOINTS (fine-tuned or base model server); None = default
 
 
 class ExperimentRequest(BaseModel):
@@ -105,6 +106,7 @@ def workflows_run(payload: WorkflowRunRequest):
             natural_language=payload.natural_language,
             workflow_id=payload.workflow_id,
             budget=BudgetTracker(profile=profile),
+            llm_model=payload.llm_model,
         )
     except KeyError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
@@ -187,5 +189,8 @@ from model1_rag_generator.backend.app.main import router as model1_router  # noq
 app.include_router(model1_router)
 
 from svaga_platform.app.results_api import router as results_router  # noqa: E402
+from svaga_platform.app.models_api import router as models_router  # noqa: E402
+
+app.include_router(models_router)
 
 app.include_router(results_router)
